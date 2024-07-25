@@ -1,0 +1,82 @@
+{% extends "layout.html" %}
+{% block content %}
+
+
+
+
+
+
+<!-- 
+
+
+  <DIV class="GLOBALE">
+  <DIV class="DIV1">
+<form action="{{ url_for('gfg')}}" method="post">
+
+ donnez le nom de ville :
+  <input type="text" id="ville" name="ville" >
+  <input type="submit" value ="envoyer">
+
+</form>
+
+</DIV>
+
+
+
+<DIV class="DIV2"> -->
+   
+<p class = "bouton"> <a href="{{ url_for('gfg')}}"><h4>modifier</h4></a> </p>
+
+<main>
+
+  <h1>Météo de {{ville}}</h1>
+
+
+</p>
+<div class="row "  >
+  <p><h2>{{nhar}} <span>{{newlyouma}}</span> </h2></p>
+ 
+
+    {% for i in range(8) %} 
+    <div class="col">
+       
+        <div  >  
+                <p><H4>{{listdict[i]['temps'] }}:00</H4></p>
+                
+                <p><h6><img src=" {{ url_for('static',filename =listdict[i]['image'])  }}"  alt="faux " width="30%"> <span id="bor" >{{listdict[i]['temperature'][0]}} <p id="bor">{{listdict[i]['temperature'][1]}} °C</span> </h6></p>
+       
+                <h6>{{listdict[i]['wind'][0]}}   <p>{{listdict[i]['wind'][0]}} km/h</h6>
+                <p><h6>{% if listdict[i]['rain'] !=0.0 %}
+                       <img src="static/images/umbrella.png" alt="faux " width="15%">
+                  {% endif %}
+                  {{listdict[i]['rain']}}mm</h6></p>
+                  
+                <p><h6>{{listdict[i]['cloud']}}%</h6></p>
+                {% if listdict[i]['temps'] < maintenant   %}
+                <form action="bonne" method="post">
+                  <input type="hidden" name="etat" id="etat">
+                <input type="hidden"  name="temp"  id="temp" value="{{listdict[i]['temperature'][0]}}">
+                <input type="hidden"  name="rain"  id="rain" value="{{listdict[i]['rain']}}">
+                <input type="hidden"  name="wind"  id="wind" value="{{listdict[i]['wind'][0]}}">
+                <P><input type="submit" value="bonne " name="bonne" id ="bonne" style="background-color: rgb(172, 245, 27);"></P>
+                </form>
+                <form action="mauvaise" method="post">
+                  <input type="hidden"  name="temp"  id="temp" value="{{listdict[i]['temperature'][0]}}">
+                  <input type="hidden"  name="rain"  id="rain" value="{{listdict[i]['rain']}}">
+                  <input type="hidden"  name="wind"  id="wind" value="{{listdict[i]['wind'][0]}}">
+                <input type="hidden" name="temp" id="temp" value="{{listdict[i]['temperature'][0]}}">
+                <P><input type="submit" value="mauvaise" name="mauvaise" id="mauvaise" style="background-color: rgb(233, 52, 28);"></P>
+                </form>
+                
+                {% else %}
+                <p style="color: rgb(15, 233, 44); font-size: 20px;">pb</p>
+                <p style="color: rgb(236, 25, 18); font-size: 20px;">pm</p>
+                {% endif%}
+                
+        </div> 
+      
+    </div>
+    {% endfor %} 
+</div>
+</main></DIV></DIV>
+{% endblock content %}
